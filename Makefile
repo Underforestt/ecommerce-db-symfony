@@ -1,10 +1,13 @@
 #----------------------Make Environment----------------------
 COMPOSE_CONFIG= -f docker/docker-compose.yml
 PHP= php
+DB= database
+DB_NAME= precoro_test
 
 #----------------------Actions----------------------
 build:
-	docker-compose $(COMPOSE_CONFIG) build
+	docker-compose $(COMPOSE_CONFIG) build; \
+	docker-compose $(COMPOSE_CONFIG) exec $(PHP) composer update
 
 up:
 	docker-compose $(COMPOSE_CONFIG) up -d
@@ -18,7 +21,8 @@ restart:
 config:
 	docker-compose $(COMPOSE_CONFIG) config
 
-sh:
-	docker-compose $(COMPOSE_CONFIG) exec $(PHP) sh
+bash:
+	docker-compose $(COMPOSE_CONFIG) exec $(PHP) bash
 
-
+db:
+	docker-compose $(COMPOSE_CONFIG) exec $(DB) mysql -u root -p $(DB_NAME)

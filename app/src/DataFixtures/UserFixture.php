@@ -2,16 +2,16 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Category;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
-class CategoryFixture extends Fixture
+class UserFixture extends Fixture
 {
+    public const USER_REFERENCE = 'user';
     private Generator $faker;
-    public const CATEGORY_REFERENCE = 'category';
 
     public function __construct()
     {
@@ -21,16 +21,17 @@ class CategoryFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         for($i = 0; $i < 5; $i++){
-            $manager->persist($this->getCategory());
+            $manager->persist($this->getUser());
         }
-        $this->addReference(self::CATEGORY_REFERENCE, $this->getCategory());
+        $this->addReference(self::USER_REFERENCE, $this->getUser());
         $manager->flush();
     }
 
-    private function getCategory(): Category
-    {
-        return new Category(
-            $this->faker->text(10)
+    private function getUser(): User{
+        return new User(
+            $this->faker->name(),
+            $this->faker->email(),
+            $this->faker->password(8)
         );
     }
 }

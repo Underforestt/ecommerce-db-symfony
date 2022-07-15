@@ -14,7 +14,7 @@ class Product
     #[ORM\Column()]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Category $category = null;
 
@@ -29,6 +29,15 @@ class Product
 
     #[ORM\Column]
     private ?int $stock = null;
+
+    public function __construct($category, string $name, string $description, float $price, int $stock)
+    {
+        $this->category = $category;
+        $this->name = $name;
+        $this->description = $description;
+        $this->price = $price;
+        $this->stock = $stock;
+    }
 
     public function getId(): ?int
     {

@@ -7,8 +7,9 @@
 app/public/bundles/
 app/var
 app/vendor/
-
+app/composer.lock
 ###< symfony/framework-bundle ###
 
 .idea
 docker/mysql/*
+!docker/mysql/.gitkeep
