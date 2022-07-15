@@ -6,11 +6,11 @@ DB_NAME= precoro_test
 
 #----------------------Actions----------------------
 build:
-	docker-compose $(COMPOSE_CONFIG) build; \
-	docker-compose $(COMPOSE_CONFIG) exec $(PHP) composer update
+	docker-compose $(COMPOSE_CONFIG) build
 
 up:
-	docker-compose $(COMPOSE_CONFIG) up -d
+	docker-compose $(COMPOSE_CONFIG) up -d; \
+	docker-compose $(COMPOSE_CONFIG) exec $(PHP) composer update
 
 down:
 	docker-compose $(COMPOSE_CONFIG) stop
